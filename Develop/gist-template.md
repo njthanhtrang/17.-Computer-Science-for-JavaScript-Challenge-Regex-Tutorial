@@ -4,7 +4,7 @@ This tutorial explains how a regular expression (regex) for matching a URL funct
 
 ## Summary
 
-This tutorial describes the regex, or sequence of characters that defines the specific search pattern or a  a URL, ```/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/```. The characters used in this specific search pattern are called metacharacters, which instead of indicating a literal character, indicates a more generalized pattern. Regex are frequently used to validate input, as when included in code or search algorithms, regex can be used to find certain patterns of characters in a string, or find and replace a character or sequence of characters within a string.
+This tutorial describes the regex, or sequence of characters that defines the specific search pattern of a URL, ```/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/```. The characters used in this specific search pattern are called metacharacters, which instead of indicating a literal character, indicates a more generalized pattern. Regex are frequently used to validate input, as when included in code or search algorithms, regex can be used to find certain patterns of characters in a string, or find and replace a character or sequence of characters within a string.
 
 ## Table of Contents
 
@@ -17,17 +17,17 @@ This tutorial describes the regex, or sequence of characters that defines the sp
 
 ## Regex Components
 Components of a regex matching a URL include:
-* Anchors-- ```^``` ```$```
-* Quantifiers-- ```*``` ```+``` ```?``` ```{}```
-* Character classes-- ```\d``` ```\w``` ```.```
-* Grouping and capturing-- ```()```
-* Bracket expressions-- ```[]```
-* Greedy match-- ```*```
+* Anchors ```^``` ```$```
+* Quantifiers ```*``` ```+``` ```?``` ```{}```
+* Character classes ```\d``` ```\w``` ```.```
+* Grouping and capturing ```()```
+* Bracket expressions ```[]```
+* Greedy match ```*```
 
 ### Anchors
 Anchors match the start(^) and end($) of a given string. For example, ```^The end$``` is an exact string match that starts and ends with __The end__.
 
-In the URL regex, we see two slashes at the start and end, as seen in ```/jkl/```, which flags the beginning and end of a regex pattern, and then ```^``` and ```$``` at those two ends to signify the search pattern found in between those characters.
+In the URL regex, we see two slashes at the start and end, as seen in ```/jkl/```, which flags, or delimits the beginning and end of a regex pattern. We then see ```^``` and ```$``` at those two ends to signify the search pattern found in between those characters.
 
 ### Quantifiers
 Quantifiers denote the number of characters that belong in the string. ```*``` is a quantifier that matches a string that includes __0 or more__ of the character preceding the ```*``` metacharacter. For example, ```jkl*``` matches a string that has ```jk``` followed by 0 or more ```l```.
@@ -49,18 +49,18 @@ The character class ```\d``` matches a single character that is a digit, from __
 
 The character class ```\w``` matches a single word character which can be __alphanumeric__ or __underscore__.
 
-```.``` matches __any__ character.
+```.``` matches __any__ character. When escaped with a backslash, as in ```\.```, the regex identifies a literal ```.```.
 
 ### Grouping and Capturing
 Parentheses ```j(kl)``` create a capturing group with the value ```kl```. In ```j(?:kl)```, we disable the capturing group to only capture the letters outside the parentheses. In ```j(?<foo>kl)```, we assign a name ```foo``` to the capturing group.
 
 The first capturing group of the URL regex, ```(https?:\/\/)```, includes a pattern that matches an "h", "t, "t", "p", optional "s" character followed by a ":", two escaped "/", and a ```?``` quantifier, indicating 0 or 1 of the preceding capturing group. The URL may or may not include an ```http://``` or ```https://```.
 
-The second capturing group, ```([\da-z\.-]+)```, includes a bracketed character set ```[\da-z\.-]``` which matches any character including a digit character ```\d```, a character from a-z, case-sensitive, an escaped ```.```, and/or ```-```. This character set is followed by the ```+``` quantifier, indicating 1 or more of the preceding character set. This second capturing group is then followed by an escaped ```\.```. The URL includes at least 1 or more of the bracketed character set, followed by a ```.```, as in ```www.```, ```google.``` or ```www.google.``` in  ```www.google.com```.
+The second capturing group, ```([\da-z\.-]+)```, includes a bracketed character set ```[\da-z\.-]``` which matches any character including a digit character ```\d```, a character from a-z, case-sensitive, an escaped ```.```, and/or ```-```. This character set is followed by the ```+``` quantifier, indicating 1 or more of the preceding character set. This second capturing group is then followed by an escaped ```\.```. The URL includes at least 1 or more of the bracketed character set, followed by a ```.```, as in ```google.``` or ```www.google.``` in  ```www.google.com```.
 
 The third capturing group, ```([a-z\.]{2,6})```, includes a bracketed character set ```[a-z\.]``` which matches any character including an a-z character, case-sensitive, and an escaped ```\.```. This is found 2 and up to 6 times as indicated by the ```{2,6}``` quantifier. Examples of this capturing group include ```.com```, ```.net``` and ```.gov```.
 
-The fourth capturing group, ```([\/\w \.-]*)``` includes a bracketed character set ```[\/\w \.-]``` which matches any character including an escaped ```\/```, an alphanumeric word or underscore character, an escaped alphanumeric or underscore word character ```\w```, an escaped ```\.```, and/or ```-``` character. This set is followed by the ```*``` quantifier, indicating a match of 0 or more of the preceding character set. This entire fourth capturing group is then matched 0 or more times, as indicated by the ```*``` quantifier following the fourth capturing group, meaning this entire portion of the URL is optional or can have as many additions as delineated. An example of this may be a specific route on a website, such as ```youtube.com/feed/explore```.
+The fourth capturing group, ```([\/\w \.-]*)``` includes a bracketed character set ```[\/\w \.-]``` which matches any character including an escaped ```\/```, an escaped alphanumeric or underscore word character ```\w```, an escaped ```\.```, and/or ```-``` character. This set is followed by the ```*``` quantifier, indicating a match of 0 or more of the preceding character set. This entire fourth capturing group is then matched 0 or more times, as indicated by the ```*``` quantifier following the fourth capturing group, meaning this entire portion of the URL is optional or can have as many additions as delineated. An example of this may be a specific route on a website, such as ```youtube.com```__/feed/explore/__.
 
 An escaped ```\/``` and ```?``` quantifier then follows the fourth capturing group, indicating an optional ```/``` after the URL.  Thus concludes the URL regex search pattern!
 
